@@ -1,0 +1,76 @@
+<mvc:View controllerName="zmclaren.prd.view.MasterOperations" xmlns:core="sap.ui.core" xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="masterOperationsPage" title="{i18n>masterOperationsTitle} ({Operations>/results/length})" showNavButton="true" navButtonPress="onNavBack">
+		<subHeader id="masterOperationsSubHeader">
+			<Bar id="searchBar">
+				<contentMiddle>
+					<SearchField id="searchFieldOperations" placeholder="{i18n>masterOperationsSearchPlaceholder}" liveChange="onSearch" showRefreshButton="{device>/isNoTouch}"
+						tooltip="{i18n>masterOperationsSearchTooltip}" width="100%">
+					</SearchField>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<!--<List id="listOperations" items="{ToProdOrderOperation/?$filter=Operator%20eq%20%271%27}" mode="{device>/listMode}"-->
+			<List id="listOperations" items="{Operations>/results}" mode="{device>/listMode}"
+				noDataText="{i18n>masterOperationsListNoDataText}" select="onSelect">
+				<items id="masterOperationsList">
+			    	<CustomListItem ariaLabelledBy="__xmlview0--catalogTable_col2_label" counter="0" id="idOperationsItems">
+						<content>
+							<VBox width="300px">
+								<items>
+									<Label text="{Operations>ShortText}" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom labelOperations"/>
+									<HBox fitContainer="false" displayInline="false" justifyContent="Center">
+										<items>
+											<core:Icon class="sapUiSmallMarginBegin " size="2rem" src="sap-icon://request" 
+												color="{
+															parts: [
+                														{path: 'Operations>HasDataCollection'},
+                														{path: 'Operations>DataCollected'}
+                													],
+															formatter: 'zmclaren.prd.util.formatter.iconDataCollectionColor'}" 
+												/>
+												<!--visible="{Operations>HasDataCollection}"-->
+											<VBox width="100%" direction="Column" id="__vbox1" justifyContent="Center">
+											    <items>
+											    <Label text="{
+											    				parts: [
+											    							{path: 'Operations>Operation'},
+											    							{path: 'Operations>OpNumberText'},
+											    							{path: 'Operations>Deleted'}
+											    						], 
+											    				formatter: 'zmclaren.prd.util.formatter.deletedOperationColor'}" 
+											    		width="100%" id="__label1" textAlign="Center"/>
+											    </items>
+											</VBox>
+											<core:Icon class="sapUiSmallMarginBegin" size="2rem" src="sap-icon://message-warning" 
+												color="{path: 'Operations>WiUpdated', formatter: 'zmclaren.prd.util.formatter.iconOperationChangedColor'}"
+												/>
+										</items>
+									</HBox>
+								</items>
+							</VBox>
+						</content>
+					</CustomListItem>
+				</items>
+				<!--<swipeContent>-->
+				<!--	<Button-->
+				<!--		text=""-->
+				<!--		icon="sap-icon://accept"-->
+				<!--		type="Accept"-->
+				<!--		press="confirmOperation" />-->
+				<!--</swipeContent>-->
+			</List>
+		</content>
+		<footer id="masterOperationsFooter">
+			<Toolbar id="masterOperationsToolbar">
+				<content>
+					<ToolbarSpacer/>
+					<!--<footerbar:SettingsButton icon="sap-icon://action-settings" id="settingsButtonOperations" tooltip="Help"></footerbar:SettingsButton>-->
+					<Label id="lblClock" text="" class="labelClock"/>
+					<ToolbarSpacer/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

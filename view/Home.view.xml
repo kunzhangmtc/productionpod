@@ -1,0 +1,57 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="zmclaren.prd.view.Home">
+	<Page title="{i18n&gt;homeTitle}">
+		<headerContent>
+			<html:div class="logoMcLaren"></html:div>
+		  	<!--<Image id="__image0" src="../images/mclaren-logo.jpg"/>-->
+		</headerContent>
+		<content>
+			<l:Grid defaultSpan="L12 M12 S12" width="auto">
+				<l:content>
+					<f:SimpleForm id="SimpleFormHome" minWidth="1024" maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="4" emptySpanM="3" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="{i18n&gt;WorkCentre}"/>
+							<Input id="workcentreId" type="Text" change="onWorkCentre" placeholder="Enter Work Centre ..." showSuggestion="true" maxLength="8"
+									showValueHelp="true" valueHelpRequest="handleValueHelp" suggestionItems="{/PlantCollection('9000')/ToWorkCentre}">
+									<suggestionItems>
+										<core:Item text="{WorkCentreID}"/>
+									</suggestionItems>
+							</Input>
+							<!--<Button text="{i18n&gt;SelectButton}" width="100px" type="Emphasized" press="onSelect"/>-->
+						</f:content>
+					</f:SimpleForm>
+					<f:SimpleForm id="SimpleFormOperators" title="Operators" visible="false" width="auto" minWidth="1024" maxContainerCols="3" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="4" emptySpanM="3" columnsL="1" columnsM="1" class="editableForm">
+						<f:content>
+							<Label text="Operator1" id="lblOperator1"/>
+							<Input id="inOperator1" type="Text" placeholder="Swipe Operator 1" change="onOperatorSwipe" 
+								liveChange="onOperatorSwipe2" enabled="false" maxLength="10"/>
+							<!--<Input value="Operator1" id="lblOperatorName1" visible="false" enabled="false"/>-->
+							<Label text="Operator2" id="lblOperator2"/>
+							<Input id="inOperator2" type="Text" placeholder="Swipe Operator 2" change="onOperatorSwipe" 
+								liveChange="onOperatorSwipe2" enabled="false" maxLength="10"/>
+							<!--<Label text="Operator2" id="lblOperatorName2" visible="false"/>-->
+							<Label text="Operator3" id="lblOperator3"/>
+							<Input id="inOperator3" type="Text" placeholder="Swipe Operator 3" change="onOperatorSwipe" 
+								liveChange="onOperatorSwipe2" enabled="false" maxLength="10"/>
+							<!--<Label text="Operator3" id="lblOperatorName3" visible="false"/>-->
+							<Label text="Operator4" id="lblOperator4"/>
+							<Input id="inOperator4" type="Text" placeholder="Swipe Operator 4" change="onOperatorSwipe" 
+								liveChange="onOperatorSwipe2" enabled="false" maxLength="10"/>
+							<!--<Label text="Operator4" id="lblOperatorName4" visible="false"/>-->
+							<Label text=""/>
+							<Button text="{i18n&gt;LogInButton}" id="idHomeLogin" width="100px" type="Emphasized" press="onLogin"/>
+						</f:content>
+					</f:SimpleForm>
+				</l:content>
+			</l:Grid>
+		</content>
+		<footer id="homeFooter">
+			<Toolbar id="homeToolbar">
+				<content>
+					<Label id="lblClock" text=""/>
+					<ToolbarSpacer/>
+					<Button text="Log Off Operators" type="Emphasized" tooltip="Log Off Operators" press="onLogOffOperators"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

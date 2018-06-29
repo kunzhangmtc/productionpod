@@ -1,0 +1,3 @@
+<mvc:View controllerName="zmclaren.prd.view.App2" displayBlock="true" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<SplitApp id="idAppControl"/>
+</mvc:View>

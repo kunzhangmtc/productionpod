@@ -1,0 +1,57 @@
+.logoMcLaren{  
+  background-image: url('../images/mclaren-logo.jpg')  !important;
+  background-size: 159px 40px	!important;
+  width: 159px; 
+  height: 40px; 
+  margin-top: 4px;
+  /*background-size: 100% 100%	!important;*/
+ }
+.labelClock.sapMLabel{
+	font-size: 2rem !important;
+}
+.spacerTop {
+    margin-top: 2rem;
+}
+.sap-tablet .sapMDialog,
+.sap-desktop .sapMDialog {
+    min-width: 18rem;
+}
+.sapMMessageDialog {
+    width: 18rem;
+}
+.labelOperations {
+	font-size: 0.73rem;
+}
+.sapMListTblCellDataCollection>.sapMListTblCell {
+    padding: .5rem .5rem;
+    vertical-align: middle !important;
+    font-size: 0.875rem;
+}
+.deletedOperations{  
+  background-color: lightgray  !important;
+ }
+.taktTime{
+ font-size: 350px !important;
+ text-align : center !important;
+ color : white;
+ background-color : #12ad04;
+}
+.taktTimeAmber{
+font-size: 350px !important;
+ text-align : center !important;
+ color : white;
+ background-color : #f0a30a;	
+}
+.taktTimeRed{
+font-size: 350px !important;
+ text-align : center !important;
+ color : white;
+ background-color : #ff1100;	
+}
+.taktTimeThreeDigits{
+font-size: 275px !important;
+ text-align : center !important;
+ color : white;
+ background-color : #ff1100;
+ background-size: 100%;
+}

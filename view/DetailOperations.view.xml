@@ -1,0 +1,382 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="zmclaren.prd.view.DetailOperations">
+	<Page id="detailPage" title="" navButtonPress="onNavBack" showNavButton="{device>/isPhone}" enableScrolling="false">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Label id="idLblProdOrderDetailOperations" text="Production Order: {OrderNumber}" class="sapUiSmallMarginBegin"/>
+					<ToolbarSpacer/>	
+				</contentLeft>
+				<contentMiddle>
+					<Button id="idBtnOperator1" text="Operator 1" type="{Operators>/Operators/0/ButtonType}" icon="{Operators>/Operators/0/Icon}" enabled="{Operators>/Operators/0/ButtonEnabled}" press="checkOperations"/>
+					<Button id="idBtnOperator2" text="Operator 2" type="{Operators>/Operators/1/ButtonType}" icon="{Operators>/Operators/1/Icon}" enabled="{Operators>/Operators/1/ButtonEnabled}" press="checkOperations"/>
+					<Button id="idBtnOperator3" text="Operator 3" type="{Operators>/Operators/2/ButtonType}" icon="{Operators>/Operators/2/Icon}" enabled="{Operators>/Operators/2/ButtonEnabled}" press="checkOperations"/>
+					<Button id="idBtnOperator4" text="Operator 4" type="{Operators>/Operators/3/ButtonType}" icon="{Operators>/Operators/3/Icon}" enabled="{Operators>/Operators/3/ButtonEnabled}" press="checkOperations"/>
+				</contentMiddle>
+				<contentRight>
+					<ToolbarSpacer/>
+					<html:div id="idLogoDetailOperations" class="logoMcLaren"></html:div>
+					<!--<Image width="158px" height="40px" id="__image0" src="images/mclaren-logo.jpg"/>-->
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content id="DetailOperationsContent">
+			<html:div id="mouseDetailOperations">
+			<ObjectHeader binding="{}" title="{ShortText}" condensed="true" number="{Operators>/Model}" id="idDetailOperationsOH">
+			</ObjectHeader>
+			<IconTabBar id="iconTabBarOperations" selectedKey="bdr" expanded="true" 
+						expandable="false" class="sapUiResponsiveContentPadding" select="onICTSelect">
+				<items>
+					<IconTabFilter id="idITBBDR" text="BDR" key="bdr" icon="" count="0">
+						<!--<List id="operationsBDR2" headerText="" noDataText="{i18n&gt;detailOperationBDRListNoDataText}" items="{ToOperationBDR}"-->
+						<!--	select="onSelectBDR" mode="{device>/listMode}" updateFinished="onUpdateFinishedBDR" visible="false">-->
+						<!--	<items>-->
+						<!--		<StandardListItem title="{Description}" description="{Uri}" -->
+						<!--							info="{-->
+						<!--								path: 'IsConfirmed',-->
+						<!--								formatter: 'zmclaren.prd.util.formatter.bdrText'-->
+						<!--							}" -->
+						<!--							infoState="{-->
+						<!--								path: 'IsConfirmed',-->
+						<!--								formatter: 'zmclaren.prd.util.formatter.bdrStatus'-->
+						<!--							}"-->
+						<!--		/>-->
+						<!--	</items>-->
+						<!--</List>-->
+						<f:SimpleForm id="bdrForm"	minWidth="1024"	maxContainerCols="3" editable="true" layout="ResponsiveGridLayout" title="" labelSpanL="2"
+							labelSpanM="2" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1" class="editableForm">
+							<f:content>
+								<Label text="BDR"/>
+								<!--<Select	id="operationsBDR" items="{ToOperationBDR}" change="onSelectBDR" updateFinished="onUpdateFinishedBDR">-->
+								<Select	id="operationsBDR" change="onSelectBDR" updateFinished="onUpdateFinishedBDR">
+									<core:Item key="{Description}" text="{Description}" id="operationsBDRTemplate"/>
+								</Select>
+								<Button id="btnConfirmBDR" text="Confirm BDR" type="Reject" press="onConfirmBDR"/>
+							</f:content>
+						</f:SimpleForm>
+						<core:HTML id="bdrFrame"></core:HTML>
+					</IconTabFilter>
+					<IconTabFilter id="idITBWorkInstructions" text="Work Instructions" key="workInstructions" icon="" count="0">
+						<l:DynamicSideContent
+							id="DynamicSideContent"
+							class="sapUiDSCExplored sapUiContentPadding"
+							sideContentFallDown="BelowM"
+							containerQuery="true"
+							breakpointChanged="updateToggleButtonState">
+							<l:mainContent>
+								<List id="operationsWorkInstruction" headerText="" noDataText="{i18n&gt;detailOperationWorkInstructionsListNoDataText}" 
+										items="{ToOperationWorkInstruction}" visible="false" updateFinished="onUpdateFinishedWorkInstructions">
+									<items>
+										<StandardListItem title="{Dktxt}" description="{Uri}"/>
+									</items>
+								</List>
+								<core:HTML id="workInstructionsFrame"></core:HTML>
+								<!--<Image width="845px" height="500px" id="imageWI" src="images/GA010-1-6WI.JPG"/>-->
+							</l:mainContent>
+							<l:sideContent>
+								<ScrollContainer
+									id="idSCSideComponents"
+									width="100%"
+									horizontal="false"
+									vertical="true"
+									focusable="true">
+									<List id="operationsComponent2" class="sapUiSizeCompact" headerText="Components" noDataText="{i18n&gt;detailOperationComponentsListNoDataText}" items="{ToOperationComponent}">
+										<items>
+											<StandardListItem title="{Material}" description="{Description}" info="Quantity: {Quantity}"/>
+										</items>
+									</List>
+								</ScrollContainer>
+							</l:sideContent>
+						</l:DynamicSideContent>
+					</IconTabFilter>
+					<IconTabFilter id="idITBDataCollection" text="Data Collection" key="dataCollection" icon="" count="0">
+						<ScrollContainer
+							id="idSCDataCollection"
+							height="300px"
+							width="100%"
+							horizontal="false"
+							vertical="true"
+							focusable="true">
+							<!--<List id="operationsDataCollection" headerText="" noDataText="{i18n&gt;detailOperationDataCollectionListNoDataText}" items="{ToOperationDataCollect}">-->
+							<!--	<items>-->
+							<!--		<StandardListItem title="{Material}" description="{Description}" info="{Mask}"/>-->
+							<!--	</items>-->
+							<!--</List>-->
+							<Table id="operationsDataCollectionTable"
+								inset="false" items="{ToOperationDataCollect}"  updateFinished="onUpdateFinishedDataCollection">
+								<columns>
+									<Column mergeDuplicates="true"
+										width="8%">
+										<Text text="Operation" />
+									</Column>
+									<Column
+										width="25%"
+										minScreenWidth="Tablet"
+										demandPopin="true">
+										<Text text="Material / Description" />
+									</Column>
+									<Column
+										width="15%"
+										hAlign="Left"
+										minScreenWidth="1100px"
+										demandPopin="true">
+										<Text text="Instruction" />
+									</Column>
+									<Column
+										visible="true"
+										width="15%"
+										hAlign="Left"
+										minScreenWidth="900px"
+										demandPopin="true">
+										<Text text="Required Value"/>	
+									</Column>
+									<Column
+										width="15%"
+										hAlign="Left"
+										minScreenWidth="Tablet"
+										demandPopin="true">
+										<Text text="Actual Value" />
+									</Column>
+									<Column
+										width="2%"
+										hAlign="Left">
+										<Text text=""/>
+									</Column>
+									<Column
+										width="15%"
+										hAlign="Left"
+										minScreenWidth="1000px"
+										demandPopin="true">
+										<Text text="COP Number"/>
+									</Column>								
+									<Column
+										width="5%"
+										hAlign="Center">
+										<Text text=""/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem class="sapMListTblCellDataCollection">
+										<cells>
+											<Text text="{Operation}"/>
+											<ObjectIdentifier
+												title="{Material}"
+												text="{MaterialDescription}"/>
+											<Text text="{Instruction}"/>
+											<Text text="{Mask}"/>
+											<Input id="idOperationDataCollectionInput" value="{ActualValue}" />
+												<!--valueState="{-->
+												<!--				parts: [-->
+            <!--														{path: 'ActualValue'},-->
+            <!--														{path: 'Mask'}-->
+            <!--													],-->
+            <!--													formatter: 'zmclaren.prd.util.formatter.dataCollectionState'-->
+            <!--												}"/>-->
+											<core:Icon src="sap-icon://accept" 
+												color="{
+															parts: [
+        														{path: 'ActualValue'},
+        														{path: 'Mask'}
+                												],
+															formatter: 'zmclaren.prd.util.formatter.dataCollectionStateIcon'}" 
+														/>
+											<Text text="{COPNumber}"/>
+											<Button text="" icon="sap-icon://save" type="Emphasized" press="checkDataCollection"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>
+						</ScrollContainer>
+					</IconTabFilter>
+					<IconTabFilter id="idITBTooling" text="Tooling" key="tooling" icon="" count="0">
+						<ScrollContainer
+							id="idSCTooling"
+							height="400px"
+							width="100%"
+							horizontal="false"
+							vertical="true"
+							focusable="true">
+							<!--<List id="operationsTooling" headerText="" noDataText="{i18n&gt;detailOperationToolingListNoDataText}" items="{ToOperationTool}" class="sapUiSizeCompact">-->
+							<!--	<items>-->
+							<!--		<StandardListItem title="{Description}" description="{Setting}" info="{SerialNo}"/>-->
+							<!--	</items>-->
+							<!--</List>-->
+							<Table id="operationsTooling"
+								inset="false" items="{ToOperationTool}" updateFinished="onUpdateFinishedTooling">
+								<columns>
+									<Column>
+										<Text text="Description" />
+									</Column>
+									<Column
+										hAlign="Left">
+										<Text text="Serial Nr."/>
+									</Column>
+									<Column
+										hAlign="Right">
+										<Text text="Setting" />
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem class="sapMListTblCellTooling">
+										<cells>
+											<Text text="{Description}"/>
+											<Text text="{SerialNo}"/>											
+											<Text text="{Setting}{SettingUoM}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>						
+						</ScrollContainer>
+					</IconTabFilter>
+					<IconTabFilter id="idITBComponents" text="Components" key="components" icon="" count="0">
+						<ScrollContainer
+							id="idSCComponents"
+							height="300px"
+							width="100%"
+							horizontal="false"
+							vertical="true"
+							focusable="true">
+							<!--<List id="operationsComponent" class="sapUiSizeCompact" headerText="" noDataText="{i18n&gt;detailOperationComponentsListNoDataText}" items="{ToOperationComponent}">-->
+							<!--	<items>-->
+							<!--		<StandardListItem title="{Material}" description="{Description}" info="Quantity: {Quantity}"/>-->
+							<!--	</items>-->
+							<!--</List>-->
+							<Table id="operationsComponent"
+								inset="false" items="{ToOperationComponent}" updateFinished="onUpdateFinishedComponent">
+								<columns>
+									<Column>
+										<Text text="Material" />
+									</Column>
+									<Column
+										hAlign="Left">
+										<Text text="Description"/>
+									</Column>
+									<Column
+										hAlign="Right">
+										<Text text="Quantity" />
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem class="sapMListTblCellComponent">
+										<cells>
+											<Text text="{Material}"/>
+											<Text text="{Description}"/>											
+											<Text text="{Quantity}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+							</Table>	
+						</ScrollContainer>
+					</IconTabFilter>
+					<IconTabFilter id="idITBIssues" text="Issues" key="issues" icon="" count="0"  >
+					<l:VerticalLayout>
+						<l:HorizontalLayout>
+								<Text width="15px" />
+								<l:VerticalLayout>
+										<Label id="idLIssCat" text="4M's" required = "true"/>
+								<!--	<Select	id="idSIssCat" placeholder="Select Category" items ="{/IssueCategorySet}" change="onSelectIssCat" width = "120px" autoAdjustWidth = "false"  >
+									   	<core:Item key="{ProdCategory}" text="{Description}" id="idLIIssCatList"/>
+							    	</Select>-->
+							    	<ComboBox id="idCIssCat" placeholder ="Select 4M's" items ="{/IssueCategorySet}" selectionChange ="onSelectIssCat" width = "150px" required = "true">
+									<core:Item key="{ProdCategory}" text="{Description}" id="idCIIssCatList"/>
+									</ComboBox>
+							    </l:VerticalLayout>
+							    	<Text width="15px" />
+							    <l:VerticalLayout>
+							    	<Label id="idLIssSubCat"  text="Issue" required = "true"/>
+									<ComboBox id="idSIssSubCat"  selectionChange="onSelectIssSubcat" width = "175px" autoAdjustWidth = "false" placeholder="Select Issue" >
+								    	<core:Item key ="{Subcategory}" text="{Description}" id="idLIIssSubCatList"/>
+							    	</ComboBox>
+							    </l:VerticalLayout>
+							    <Text width="15px" />
+							    <l:VerticalLayout>
+							        <Label id="idLIssCat03"  text="Category"/>
+							         <ComboBox id ="idSIssCat03" width = "160px" autoAdjustWidth = "false" placeholder = "Select Category" selectionChange="onSelectIssCat03" >
+							             <core:Item key="{Category03}" text="{Description}" id="idICat03"/>
+						    	     </ComboBox>
+						    	</l:VerticalLayout>
+						    	<Text width="15px" />
+						    	 <l:VerticalLayout>
+							    	<Label id="idLIssMat" text="Material"/>
+							    <!--	<Select	id="idSIssMat" items ="{ToOperationComponent}" change="onSelectIssMat" width = "150px" autoAdjustWidth = "false">
+										<core:Item key="{Material}" text="{Material}" id="idLIIssMatList"/>
+							    	</Select>-->
+							    		<ComboBox id="idCIssMat" placeholder ="Select Material" selectionChange ="onSelectIssMat" width = "400px" >
+										<core:Item key="{Matnr}" text="{Matnr}" id="idLIIssMatList"/>
+										</ComboBox>
+							    </l:VerticalLayout>
+							    <Text width="15px" />
+						    	 <l:VerticalLayout>
+							    		<Label id="idLIssReason" text="Reason"/>
+							    		<TextArea id="idTAIssReason" rows="1" maxLength="100" width = "300px"/>
+							    </l:VerticalLayout>
+						</l:HorizontalLayout> 
+							 <l:HorizontalLayout>
+							 	<Text width="15px" />
+								<Button id="btnSaveIssue" type="Emphasized" text="Save Issue" press="onSaveFault" tooltip="Save Issue" /> 
+							</l:HorizontalLayout>
+								<Text width="25px" />
+					</l:VerticalLayout>
+					<ScrollContainer
+							id="idSCIssue"
+							height = "575px"
+							width="100%"
+							horizontal="false"
+							vertical="true"
+							focusable="true">
+						<Table id ="idIssueLog" inset="false"
+						items="{/IssueCaptureSet}" mode="SingleSelectMaster" selectionChange="onIssSelectChange" updateFinished="onIssUpdateFinished">
+							<columns>
+							
+								<Column ><Text text="Issue Number"/></Column>
+								<Column><Text text="WorkCentre"/></Column>
+								<Column><Text text="4M's" /></Column>
+								<Column><Text text="Issue" /></Column>
+								<Column><Text text="Category" /></Column>
+								<Column><Text text="Material" /></Column>
+								<Column><Text text="Description" /></Column>
+								<Column><core:Icon id="refreshIssIcon" src="sap-icon://refresh" press="onRefreshIssue" tooltip = "Refresh" /></Column>
+								<Column />
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+									     <Text text="{Issue}"/>
+										 <Text text="{Aplfl}"/>
+									    <Text  text="{Category01}"/>
+										<Text  text="{Category02}"/>
+										<Text  text="{Category03}"/>
+										<Text text="{Matnr}"/>															
+								    	<Text  text="{Text}"/>
+									  
+									  <HBox>
+									   <core:Icon id="closeIssIcon" src="sap-icon://decline" press="onCloseFault" visible="{path: 'closeNew', formatter: '.enableControl'}" tooltip = "Close Issue" />
+									    <Text width="25px" />
+									   <core:Icon id="moveIssIcon" src="sap-icon://begin" press="onMoveIssue" visible="{path: 'moveNew', formatter: '.enableControl'}" tooltip = "Move Issue"/>
+									  </HBox>
+									</cells>
+								</ColumnListItem>
+							</items>
+							</Table>
+					
+						</ScrollContainer>	
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+			</html:div>
+		</content>
+		<footer id="detailOperationsFooter">
+			<Toolbar id="detailOperationsToolbar">
+				<content>
+					<Button id="btnSignOff" text="Sign Off" type="Accept" press="disableSignOff" tooltip="Sign Off" />
+					<ToolbarSpacer/>
+					<Button text="" type="Emphasized" icon="sap-icon://accidental-leave" press="onHealthSafety" tooltip="Health and Safety"/>
+					<Button text="" type="Emphasized" icon="sap-icon://sales-document" press="onAfterSales" tooltip="After Sales"/>
+					<ToolbarSpacer/>
+					<Button id="btnMoveCar" type="Emphasized" text="Move Car" press="onMoveCar" tooltip="Move Car" /> 
+					<Button id="btnPullCar" type="Emphasized" text="Pull Car" press="onPullCar" tooltip="Pull Car" /> 
+					<Button text="Log Off Operators" type="Emphasized" tooltip="Log Off Operators" press="onLogOffOperators"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

@@ -1,0 +1,59 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:html="http://www.w3.org/1999/xhtml" 
+			xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="zmclaren.prd.view.Detail">
+	<Page id="detailPage2" navButtonPress="onNavBack" showNavButton="{device&gt;/isPhone}" title="{i18n&gt;detailTitle}" enableScrolling="false">
+		<headerContent>
+			<html:div class="logoMcLaren"></html:div>
+	    	<!--<Image width="158px" height="40px" id="__image0" src="images/mclaren-logo.jpg"/>-->
+		</headerContent>
+		<content>
+			<ObjectHeader title="Order Number: {OrderNumber}" number="Model: {Model}" numberUnit="" intro="Seq. Number: {SequenceNumber}" introActive="false" titleActive="false" iconActive="false" id="detailOHProdOrders">
+			    <attributes>
+			        <ObjectAttribute text="{Paint}" active="false" id="oaPaint" title="Paint"/>
+			        <ObjectAttribute text="{Vin}" active="false" id="oaVIN" title="VIN"/>
+			        <ObjectAttribute text="{path: 'Fok', formatter: 'zmclaren.prd.util.formatter.dateFormat'}" active="false" id="oaFOK" title="FOK"/>
+			    </attributes>
+				<statuses>
+				    <ObjectStatus text="{Country}" id="stCountry" title="Country"/>
+				    <ObjectStatus text="{DriverPosition}" id="stDriverPosition" title="Driver Position"/>
+				    <ObjectStatus text="{Mso}" id="stMSO" title="MSO Content"/>
+				</statuses>
+			</ObjectHeader>
+			<f:SimpleForm id="vinCheckForm"	minWidth="1024"	maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" title="" labelSpanL="2"
+				labelSpanM="2" emptySpanL="1" emptySpanM="1" columnsL="1" columnsM="1" class="editableForm">
+				<f:content>
+					<Label text="VIN Check" />
+					<Input id="idVinCheck" />
+					<Button id="idBtnVinSelect" text="{i18n&gt;SelectButton}" type="Emphasized" press="onSelect" enabled="false"/>
+				</f:content>
+			</f:SimpleForm>
+			<!--<Toolbar>
+				<Title text="Option List:"/>
+			</Toolbar>
+			<ScrollContainer
+				id="idSCOptionList"
+				height="300px"
+				width="100%"
+				horizontal="false"
+				vertical="true"
+				focusable="true">
+				<List id="VehicleDetailsList" class="sapUiSizeCompact"
+					noDataText="{i18n>detailOptionsListNoData}"
+					items="{ToProdOrderOption}" heigth="400px">
+					<items>
+						<StandardListItem
+							title="{VariantOption}" />
+					</items>
+				</List>				
+			</ScrollContainer>-->
+
+		</content>
+		<footer id="detailFooter">
+			<Toolbar id="detailToolbar">
+				<content>
+					<ToolbarSpacer/>
+					<Button text="Log Off Operators" type="Emphasized" tooltip="Log Off Operators" press="onLogOffOperators"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

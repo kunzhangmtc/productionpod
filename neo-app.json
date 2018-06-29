@@ -1,0 +1,54 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "DE2",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "Connection To DE2"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources",
+        "version": "1.32.4"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources",
+        "version": "1.32.4"
+      },
+      "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "DE2",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "Connection To DE2"
+    }
+  ],
+  "cacheControl": [
+    {
+      "directive": "private",
+      "maxAge": 0,
+      "path": "*html"
+    },
+    {
+      "directive": "public",
+      "maxAge": 31536000
+    }
+  ]
+}

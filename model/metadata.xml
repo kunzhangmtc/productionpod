@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZPRODUCTION_UX_SRV" xml:lang="en" sap:schema-version="1"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Plant" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PlantID"/>
+                </Key>
+                <Property Name="PlantID" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Name" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToWorkCentre" Relationship="ZPRODUCTION_UX_SRV.Plant_WorkCentre" FromRole="FromRole_Plant_WorkCentre" ToRole="ToRole_Plant_WorkCentre"/>
+            </EntityType>
+            <EntityType Name="WorkCentre" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PlantID"/>
+                    <PropertyRef Name="WorkCentreID"/>
+                </Key>
+                <Property Name="PlantID" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WorkCentreID" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Work center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Description" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Operators" Type="Edm.Byte" Nullable="false" sap:label="Operator Count" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToProdOrderHdr" Relationship="ZPRODUCTION_UX_SRV.WorkCentre_PordOrderHdr" FromRole="FromRole_WorkCentre_PordOrderHdr" ToRole="ToRole_WorkCentre_PordOrderHdr"/>
+            </EntityType>
+            <EntityType Name="ProdOrderHdr" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PlantID"/>
+                    <PropertyRef Name="WorkcentreID"/>
+                    <PropertyRef Name="OrderNumber"/>
+                </Key>
+                <Property Name="PlantID" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WorkcentreID" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Work center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderNumber" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vin" Type="Edm.String" Nullable="false" MaxLength="18" sap:label="VIN" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Model" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Model" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Bodystyle" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Body Style" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Paint" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Paint" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Country" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Country" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SequenceNumber" Type="Edm.String" Nullable="false" MaxLength="14" sap:label="Sequence No." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="SequenceDatetime" Type="Edm.String" Nullable="false" MaxLength="14" sap:label="Sequence DateTime" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Orderseqnumber" Type="Edm.String" Nullable="false" MaxLength="14" sap:label="Sequence number" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sortorder" Type="Edm.String" Nullable="false" MaxLength="3" sap:label="Sort Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ToProdOrderOption" Relationship="ZPRODUCTION_UX_SRV.ProdOrderHdr_ProdOrderOption" FromRole="FromRole_ProdOrderHdr_ProdOrderOption" ToRole="ToRole_ProdOrderHdr_ProdOrderOption"/>
+            </EntityType>
+            <EntityType Name="ProdOrderOption" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="PlantID"/>
+                    <PropertyRef Name="WorkCentreID"/>
+                    <PropertyRef Name="OrderNumber"/>
+                </Key>
+                <Property Name="PlantID" Type="Edm.String" Nullable="false" MaxLength="4" sap:label="Plant" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="WorkCentreID" Type="Edm.String" Nullable="false" MaxLength="8" sap:label="Work center" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="OrderNumber" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="Order" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VariantOption" Type="Edm.String" Nullable="false" MaxLength="80" sap:label="Option" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="Plant_WorkCentre" sap:content-version="1">
+                <End Type="ZPRODUCTION_UX_SRV.Plant" Multiplicity="1" Role="FromRole_Plant_WorkCentre"/>
+                <End Type="ZPRODUCTION_UX_SRV.WorkCentre" Multiplicity="*" Role="ToRole_Plant_WorkCentre"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_Plant_WorkCentre">
+                        <PropertyRef Name="PlantID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_Plant_WorkCentre">
+                        <PropertyRef Name="PlantID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="WorkCentre_PordOrderHdr" sap:content-version="1">
+                <End Type="ZPRODUCTION_UX_SRV.WorkCentre" Multiplicity="1" Role="FromRole_WorkCentre_PordOrderHdr"/>
+                <End Type="ZPRODUCTION_UX_SRV.ProdOrderHdr" Multiplicity="*" Role="ToRole_WorkCentre_PordOrderHdr"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_WorkCentre_PordOrderHdr">
+                        <PropertyRef Name="WorkCentreID"/>
+                        <PropertyRef Name="PlantID"/>
+                    </Principal>
+                    <Dependent Role="ToRole_WorkCentre_PordOrderHdr">
+                        <PropertyRef Name="WorkcentreID"/>
+                        <PropertyRef Name="PlantID"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ProdOrderHdr_ProdOrderOption" sap:content-version="1">
+                <End Type="ZPRODUCTION_UX_SRV.ProdOrderHdr" Multiplicity="1" Role="FromRole_ProdOrderHdr_ProdOrderOption"/>
+                <End Type="ZPRODUCTION_UX_SRV.ProdOrderOption" Multiplicity="*" Role="ToRole_ProdOrderHdr_ProdOrderOption"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ProdOrderHdr_ProdOrderOption">
+                        <PropertyRef Name="PlantID"/>
+                        <PropertyRef Name="WorkcentreID"/>
+                        <PropertyRef Name="OrderNumber"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ProdOrderHdr_ProdOrderOption">
+                        <PropertyRef Name="PlantID"/>
+                        <PropertyRef Name="WorkCentreID"/>
+                        <PropertyRef Name="OrderNumber"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZPRODUCTION_UX_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="WorkCentreCollection" EntityType="ZPRODUCTION_UX_SRV.WorkCentre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProdOrderHdrCollection" EntityType="ZPRODUCTION_UX_SRV.ProdOrderHdr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="ProdOrderOptionCollection" EntityType="ZPRODUCTION_UX_SRV.ProdOrderOption" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="PlantCollection" EntityType="ZPRODUCTION_UX_SRV.Plant" sap:label="Plant Collection" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="WorkCentre_PordOrderHdrSet" Association="ZPRODUCTION_UX_SRV.WorkCentre_PordOrderHdr" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="WorkCentreCollection" Role="FromRole_WorkCentre_PordOrderHdr"/>
+                    <End EntitySet="ProdOrderHdrCollection" Role="ToRole_WorkCentre_PordOrderHdr"/>
+                </AssociationSet>
+                <AssociationSet Name="ProdOrderHdr_ProdOrderOptionSet" Association="ZPRODUCTION_UX_SRV.ProdOrderHdr_ProdOrderOption" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ProdOrderHdrCollection" Role="FromRole_ProdOrderHdr_ProdOrderOption"/>
+                    <End EntitySet="ProdOrderOptionCollection" Role="ToRole_ProdOrderHdr_ProdOrderOption"/>
+                </AssociationSet>
+                <AssociationSet Name="Plant_WorkCentreSet" Association="ZPRODUCTION_UX_SRV.Plant_WorkCentre" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="PlantCollection" Role="FromRole_Plant_WorkCentre"/>
+                    <End EntitySet="WorkCentreCollection" Role="ToRole_Plant_WorkCentre"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="./destinations/SE2/sap/opu/odata/sap/ZPRODUCTION_UX_SRV/$metadata"
+                xmlns:atom="http://www.w3.org/2005/Atom"/>
+                <atom:link rel="latest-version" href="./destinations/SE2/sap/opu/odata/sap/ZPRODUCTION_UX_SRV/$metadata"
+                    xmlns:atom="http://www.w3.org/2005/Atom"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
