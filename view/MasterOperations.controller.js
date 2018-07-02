@@ -1,5 +1,6 @@
 jQuery.sap.require("zmclaren.prd.util.messages");
 jQuery.sap.require("sap.ca.ui.message.message");
+jQuery.sap.require("zmclaren.prd.util.TaktClock");
 var bFlagBDR;
 var sName;
 
@@ -43,7 +44,11 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.MasterOperations", {
 
 		oEventBus.subscribe("DetailOperations", "Changed", this.onDetailChanged, this);
 		oEventBus.subscribe("DetailOperations", "NotFound", this.onNotFound, this);
-		this.startTime();
+		this.startTime(); 
+	// ----- Included by Sai - 29/05/2018 - TAKT Clock
+	   
+	//   this.timer();
+	 // -----End of TAKT clock changes  
 		bFlagBDR = true;
 	},
 	
@@ -168,7 +173,7 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.MasterOperations", {
   //      );
 	
 	},
-
+	
 	onDetailChanged: function(sChanel, sEvent, oData) {
 		var sEntityPath = oData.sEntityPath;
 		//Wait for the list to be loaded once
@@ -306,8 +311,7 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.MasterOperations", {
 
 	onSelect: function(oEvent) {
 		try{
-			clearTimeout(window.timeout);
-			this.getEventBus().publish("DetailsOperations","SetTimeout");
+//			  zmclaren.prd.util.TaktClock.onUserActionHandler();
 			// var aItems = this.getView().byId("listOperations").getItems();
 			var pos = oEvent.getParameter("listItem").getId().split("-").slice(-1);
 			this.deletedOperations(this.getView().getModel("Operations").getData().results[pos]);
@@ -478,17 +482,97 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.MasterOperations", {
 	},
 	
 	startTime : function() {
-	    var today = new Date();
+    	var countdowntime = this.checkTaktTime();
+	   	var time = new Date();
+		var hours = time.getHours();
+		var min = time.getMinutes();
+		var sec = time.getSeconds();
+		var now = ((hours * 60 * 60 * 1000) + (min * 60 * 1000) + (sec * 1000));
+		var cTime = now - countdowntime;
+		var minutes = Math.floor(cTime / (1000 * 60));
+		if (minutes < 10) {
+			minutes = "0" + minutes;
+		}
+		var second = Math.floor((cTime % (1000 * 60)) / 1000);
+		if (second < 10) {
+			second = "0" + second;
+		}
+		if (minutes > 99) {
+			var currTime = "99:00";
+		} else {
+			currTime = minutes + ":" + second;
+		}
+	    if (minutes < 28){
+	     this.getView().byId("lblClock").addStyleClass("taktTime");	
+	     this.getView().byId("lblClock").removeStyleClass("taktTimeAmber");
+	     this.getView().byId("lblClock").removeStyleClass("taktTimeRed");
+	    }
+		else if (minutes >= 28 && minutes < 33) {
+		 this.getView().byId("lblClock").addStyleClass("taktTimeAmber");
+		 this.getView().byId("lblClock").removeStyleClass("taktTime");
+	     this.getView().byId("lblClock").removeStyleClass("taktTimeRed");
+		} else if (minutes >= 33) {
+		 this.getView().byId("lblClock").addStyleClass("taktTimeRed");
+		  this.getView().byId("lblClock").removeStyleClass("taktTime");
+	     this.getView().byId("lblClock").removeStyleClass("taktTimeAmber");
+		}
+		// 	sap.ui.getCore().byId(oTimer.getId()).setText(currTime);
+		this.getView().byId("lblClock").setText(currTime);
+		var t = setTimeout(jQuery.proxy(this.startTime, this), 1000);
+	  
+	  /*  var today = new Date();
 	    var h = today.getHours();
 	    var m = today.getMinutes();
 	    var s = today.getSeconds();
 	    m = this.checkTime(m);
 	    s = this.checkTime(s);
 	    this.getView().byId("lblClock").setText(h + ":" + m + ":" + s);
-	    var t = setTimeout(jQuery.proxy(this.startTime, this), 500);
+	    var t = setTimeout(jQuery.proxy(this.startTime, this), 500);*/
 	},
-	checkTime : function(i) {
-	    if (i < 10) 
+	checkTaktTime: function() {
+		var sServiceUrl = this._oComponent.getMetadata().getConfig().serviceConfig.serviceUrl;
+		var oOperatorsModel = sap.ui.getCore().getModel("Operators");
+		var startTime;
+		var oConfig = {
+			metadataUrlParams: {},
+			json: true,
+			// loadMetadataAsync : true,
+			defaultBindingMode: "TwoWay",
+			defaultCountMode: "Inline",
+			useBatch: false
+		};
+		this.oDataModel = new sap.ui.model.odata.ODataModel(sServiceUrl, oConfig);
+		var that = this;
+		var uriTab = "/CheckTaktTimeSet(Werks='9000',Aufnr='" + oOperatorsModel.getData().ProductionOrder + "',Aplfl='" + oOperatorsModel.getData()
+			.WorkCentre + "')";
+		//?$filter=ProdCategory eq '" + oEvent.getSource().getSelectedItem().getKey() + "'";
+
+		this.oDataModel.read(uriTab, {
+			success: function(oData) {
+				if (oData.Lastaccesstime.ms === 0) {
+					var time = new Date();
+					var hours = time.getHours();
+					var min = time.getMinutes();
+					var sec = time.getSeconds();
+					var now = ((hours * 60 * 60 * 1000) + (min * 60 * 1000) + (sec * 1000));
+					/*  var minutesLater = new Date();
+                           var scs = minutesLater.setMinutes(minutesLater.getMinutes());
+  //  console.log(scs);*/
+					startTime = now;
+
+				} else {
+					startTime = oData.Lastaccesstime.ms;
+				}
+			},
+			error: function(oError) {
+				zmclaren.prd.util.messages.showErrorMessage(oError);
+			},
+			async: false
+		});
+		return startTime;
+	},
+	checkTime : function(i){
+		    if (i < 10) 
 	    {
 	    	i = "0" + i;
 	    }// add zero in front of numbers < 10
@@ -504,7 +588,18 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.MasterOperations", {
 	},
 	
 	onNavBack: function() {
-		clearTimeout($.sap.timeout);
+		//TAKT TIME re-do//
+		// var to = sap.ui.getCore().getModel("OpModel").getProperty("/timeout");  
+		// clearTimeout(to);
+		// document.removeEventListener("mousemove", $.proxy(this.onUserActionHandler, this));
+		// document.removeEventListener("keypress", $.proxy(this.onUserActionHandler, this));
+		// document.removeEventListener("touchstart", $.proxy(this.onUserActionHandler, this));
+		/*global zmclaren*/
+//		 zmclaren.prd.util.TaktClock.onRemoveActionHandler();
+		this.getEventBus().publish("App","RemoveListener");
+	    //TAKT TIME re-do //	
+	   // clearTimeout(window.timeout);
+		
 		this.getEventBus().publish("DetailOperations", "UpdateOperatorStatus");
 		this.getEventBus().publish("MasterOperations", "RefreshMaster");
 		// window.history.go(-1);

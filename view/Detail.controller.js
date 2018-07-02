@@ -1,5 +1,6 @@
 jQuery.sap.require("zmclaren.prd.util.formatter");
 jQuery.sap.require("zmclaren.prd.util.messages");
+jQuery.sap.require("zmclaren.prd.util.TaktClock");
 
 sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.Detail", {
 
@@ -21,9 +22,11 @@ sap.ui.core.mvc.Controller.extend("zmclaren.prd.view.Detail", {
 		this.getRouter().attachRouteMatched(this.onRouteMatched, this);
 	},
 	
-	// onAfterRendering: function() {
+	 onAfterRendering: function() {
 	// 	$("#prodOrdersShell").removeClass("sapMShellAppWidthLimited");
-	// },	
+	/*global zmclaren*/
+	  zmclaren.prd.util.TaktClock.onRemoveActionHandler();
+	 },	
 
 	onMasterLoaded: function(sChannel, sEvent) {
 		this.getView().setBusy(false);

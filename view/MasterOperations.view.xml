@@ -62,12 +62,12 @@
 				<!--</swipeContent>-->
 			</List>
 		</content>
-		<footer id="masterOperationsFooter">
-			<Toolbar id="masterOperationsToolbar">
+		<footer id="masterOperationsFooter" >
+			<Toolbar id="masterOperationsToolbar" height = "100px">
 				<content>
 					<ToolbarSpacer/>
 					<!--<footerbar:SettingsButton icon="sap-icon://action-settings" id="settingsButtonOperations" tooltip="Help"></footerbar:SettingsButton>-->
-					<Label id="lblClock" text="" class="labelClock"/>
+					<Label id="lblClock" text="" width = "100%"/>
 					<ToolbarSpacer/>
 				</content>
 			</Toolbar>

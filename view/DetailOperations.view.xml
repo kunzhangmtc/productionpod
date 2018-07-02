@@ -21,8 +21,11 @@
 		</customHeader>
 		<content id="DetailOperationsContent">
 			<html:div id="mouseDetailOperations">
+		<!--	<Label id="lblTaktClock" text="" class="taktTime" textAlign="End" /> -->
 			<ObjectHeader binding="{}" title="{ShortText}" condensed="true" number="{Operators>/Model}" id="idDetailOperationsOH">
+			
 			</ObjectHeader>
+			
 			<IconTabBar id="iconTabBarOperations" selectedKey="bdr" expanded="true" 
 						expandable="false" class="sapUiResponsiveContentPadding" select="onICTSelect">
 				<items>
@@ -163,7 +166,7 @@
 												text="{MaterialDescription}"/>
 											<Text text="{Instruction}"/>
 											<Text text="{Mask}"/>
-											<Input id="idOperationDataCollectionInput" value="{ActualValue}" />
+											<Input id="idOperationDataCollectionInput" value="{ActualValue}" liveChange = "onSetTimeout"/>
 												<!--valueState="{-->
 												<!--				parts: [-->
             <!--														{path: 'ActualValue'},-->
@@ -241,14 +244,13 @@
 							<!--	</items>-->
 							<!--</List>-->
 							<Table id="operationsComponent"
-								inset="false" items="{ToOperationComponent}" updateFinished="onUpdateFinishedComponent">
+								inset="false" items="{ToOperationComponent}" updateFinished="onUpdateFinishedComponent" alternateRowColors = "true">
 								<columns>
-									<Column>
-										<Text text="Material" />
+									<Column width="45%">
+										<Text text="Operation/Description"/>
 									</Column>
-									<Column
-										hAlign="Left">
-										<Text text="Description"/>
+									<Column width="35%">
+										<Text text="Material/Description" />
 									</Column>
 									<Column
 										hAlign="Right">
@@ -257,9 +259,16 @@
 								</columns>
 								<items>
 									<ColumnListItem class="sapMListTblCellComponent">
+										<customData>
+											<core:CustomData key="componentsMasterOps" value ="{Operation}"/>
+										</customData>
 										<cells>
-											<Text text="{Material}"/>
-											<Text text="{Description}"/>											
+											<ObjectIdentifier
+												title="{Operation}"
+												text="{Ltxa1}"/>
+											<ObjectIdentifier
+												title="{Material}"
+												text="{Description}"/>
 											<Text text="{Quantity}"/>
 										</cells>
 									</ColumnListItem>
@@ -361,11 +370,13 @@
 						</ScrollContainer>	
 					</IconTabFilter>
 				</items>
+			  	
 			</IconTabBar>
 			</html:div>
+			
 		</content>
 		<footer id="detailOperationsFooter">
-			<Toolbar id="detailOperationsToolbar">
+			<Toolbar id="detailOperationsToolbar" >
 				<content>
 					<Button id="btnSignOff" text="Sign Off" type="Accept" press="disableSignOff" tooltip="Sign Off" />
 					<ToolbarSpacer/>
