@@ -31,19 +31,19 @@
   background-color: lightgray  !important;
  }
 .taktTime{
- font-size: 100px !important;
+ font-size: 350px !important;
  text-align : center !important;
  color : white;
  background-color : #12ad04;
 }
 .taktTimeAmber{
-font-size: 100px !important;
+font-size: 350px !important;
  text-align : center !important;
- color : black;
+ color : white;
  background-color : #f0a30a;	
 }
 .taktTimeRed{
-font-size: 100px !important;
+font-size: 350px !important;
  text-align : center !important;
  color : white;
  background-color : #ff1100;	
@@ -54,7 +54,4 @@ font-size: 275px !important;
  color : white;
  background-color : #ff1100;
  background-size: 100%;
-}
-.componentsMasterOps{
-background-color : #e0e0e0  !important;
 }

@@ -21,11 +21,8 @@
 		</customHeader>
 		<content id="DetailOperationsContent">
 			<html:div id="mouseDetailOperations">
-		<!--	<Label id="lblTaktClock" text="" class="taktTime" textAlign="End" /> -->
 			<ObjectHeader binding="{}" title="{ShortText}" condensed="true" number="{Operators>/Model}" id="idDetailOperationsOH">
-			
 			</ObjectHeader>
-			
 			<IconTabBar id="iconTabBarOperations" selectedKey="bdr" expanded="true" 
 						expandable="false" class="sapUiResponsiveContentPadding" select="onICTSelect">
 				<items>
@@ -166,7 +163,7 @@
 												text="{MaterialDescription}"/>
 											<Text text="{Instruction}"/>
 											<Text text="{Mask}"/>
-											<Input id="idOperationDataCollectionInput" value="{ActualValue}" liveChange = "onSetTimeout"/>
+											<Input id="idOperationDataCollectionInput" value="{ActualValue}" />
 												<!--valueState="{-->
 												<!--				parts: [-->
             <!--														{path: 'ActualValue'},-->
@@ -244,7 +241,7 @@
 							<!--	</items>-->
 							<!--</List>-->
 							<Table id="operationsComponent"
-								inset="false" items="{ToOperationComponent}" updateFinished="onUpdateFinishedComponent" alternateRowColors = "true">
+								inset="false" items="{ToOperationComponent}" updateFinished="onUpdateFinishedComponent">
 								<columns>
 									<Column width="45%">
 										<Text text="Operation/Description"/>
@@ -370,13 +367,11 @@
 						</ScrollContainer>	
 					</IconTabFilter>
 				</items>
-			  	
 			</IconTabBar>
 			</html:div>
-			
 		</content>
 		<footer id="detailOperationsFooter">
-			<Toolbar id="detailOperationsToolbar" >
+			<Toolbar id="detailOperationsToolbar">
 				<content>
 					<Button id="btnSignOff" text="Sign Off" type="Accept" press="disableSignOff" tooltip="Sign Off" />
 					<ToolbarSpacer/>

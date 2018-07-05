@@ -1,6 +1,6 @@
 jQuery.sap.declare("zmclaren.prd.Component");
 jQuery.sap.require("zmclaren.prd.MyRouter");
-var podGlobalVar = {};
+
 
 sap.ui.core.UIComponent.extend("zmclaren.prd.Component", {
 	metadata: {
@@ -174,7 +174,6 @@ sap.ui.core.UIComponent.extend("zmclaren.prd.Component", {
 			listMode: sap.ui.Device.system.phone ? "None" : "SingleSelectMaster",
 			listItemType: sap.ui.Device.system.phone ? "Active" : "Inactive"
 		});
-
 		oDeviceModel.setDefaultBindingMode("OneWay");
 		this.setModel(oDeviceModel, "device");
 
